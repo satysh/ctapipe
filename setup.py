@@ -41,7 +41,7 @@ setup(
     python_requires=">=3.7",
     install_requires=[
         "astropy>=4.0.5,<5",
-        "bokeh~=1.0",
+        "bokeh~=2.0",
         "eventio>=1.5.0,<2.0.0a0",
         "h5py",
         "iminuit>=2",
