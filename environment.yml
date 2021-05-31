@@ -4,11 +4,11 @@ channels:
   - default
   - cta-observatory
 dependencies:
-  - python=3.7
+  - python=3.8
   - pip
   - astropy
   - black
-  - bokeh=1
+  - bokeh=2
   - conda-forge::nbsphinx
   - cython
   - graphviz
