@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ctapipe.io.astropy_helpers &mdash; ctapipe v0.11.1.dev77+g15cd535e</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ctapipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.11.1.dev77+g15cd535e
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started For Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development/index.html">Development Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools/index.html">Command-Line Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_models/index.html">Data Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ctapipe_api/index.html">API Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ctapipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>ctapipe.io.astropy_helpers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ctapipe.io.astropy_helpers</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions to help adapt internal ctapipe data to astropy formats and conventions</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">tables</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.tableio</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FixedPointColumnTransform</span><span class="p">,</span>
+    <span class="n">QuantityColumnTransform</span><span class="p">,</span>
+    <span class="n">TimeColumnTransform</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.hdf5tableio</span> <span class="kn">import</span> <span class="n">get_hdf5_attr</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">ExitStack</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;read_table&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="read_table"><a class="viewcode-back" href="../../../api/ctapipe.io.read_table.html#ctapipe.io.read_table">[docs]</a><span class="k">def</span> <span class="nf">read_table</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Read a table from an HDF5 file</span>
+
+<span class="sd">    This reads a table written in the ctapipe format table as an `astropy.table.Table`</span>
+<span class="sd">    object, inversing the column transformations units.</span>
+
+<span class="sd">    This uses the same conventions as the `~ctapipe.io.HDF5TableWriter`,</span>
+<span class="sd">    with the exception of Enums, that will remain as integers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h5file: Union[str, Path, tables.file.File]</span>
+<span class="sd">        input filename or PyTables file handle</span>
+<span class="sd">    path: str</span>
+<span class="sd">        path to table in the file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    astropy.table.Table:</span>
+<span class="sd">        table in Astropy Format</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+            <span class="n">h5file</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="n">h5file</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">tables</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">File</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;expected a string, Path, or PyTables &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;filehandle for argument &#39;h5file&#39;, got </span><span class="si">{h5file}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">h5file</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">transforms</span><span class="p">,</span> <span class="n">descriptions</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">_parse_hdf5_attrs</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="n">astropy_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)],</span> <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">transforms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">astropy_table</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">astropy_table</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">descriptions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">astropy_table</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">desc</span>
+
+        <span class="k">return</span> <span class="n">astropy_table</span></div>
+
+
+<span class="k">def</span> <span class="nf">_parse_hdf5_attrs</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+    <span class="n">other_attrs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">column_descriptions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">column_transforms</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">_f_list</span><span class="p">():</span>  <span class="c1"># pylint: disable=W0212</span>
+        <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_UNIT&quot;</span><span class="p">):</span>
+            <span class="n">colname</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+            <span class="n">column_transforms</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">QuantityColumnTransform</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">attr</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_DESC&quot;</span><span class="p">):</span>
+            <span class="n">colname</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+            <span class="n">column_descriptions</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">attr</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_TIME_SCALE&quot;</span><span class="p">):</span>
+            <span class="n">colname</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s2">&quot;_TIME_SCALE&quot;</span><span class="p">)</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_hdf5_attr</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{colname}</span><span class="s2">_TIME_FORMAT&quot;</span><span class="p">,</span> <span class="s2">&quot;mjd&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">column_transforms</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">TimeColumnTransform</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">attr</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_TRANSFORM_SCALE&quot;</span><span class="p">):</span>
+            <span class="n">colname</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s2">&quot;_TRANSFORM_SCALE&quot;</span><span class="p">)</span>
+            <span class="n">column_transforms</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span> <span class="o">=</span> <span class="n">FixedPointColumnTransform</span><span class="p">(</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">],</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{colname}</span><span class="s2">_TRANSFORM_OFFSET&quot;</span><span class="p">],</span>
+                <span class="n">source_dtype</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{colname}</span><span class="s2">_TRANSFORM_DTYPE&quot;</span><span class="p">],</span>
+                <span class="n">target_dtype</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># need to convert to str() here so they are python strings, not</span>
+            <span class="c1"># numpy strings</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
+            <span class="n">other_attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
+
+    <span class="k">return</span> <span class="n">column_transforms</span><span class="p">,</span> <span class="n">column_descriptions</span><span class="p">,</span> <span class="n">other_attrs</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright ctapipe developers.  Last updated 04 Jun 2021 13:41.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

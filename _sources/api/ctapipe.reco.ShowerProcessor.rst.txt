@@ -1,0 +1,21 @@
+ShowerProcessor
+===============
+
+.. currentmodule:: ctapipe.reco
+
+.. autoclass:: ShowerProcessor
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ShowerProcessor.__call__
+      ~ShowerProcessor.process_shower_geometry
+      ~ShowerProcessor.reconstruct_geometry
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: __call__
+   .. automethod:: process_shower_geometry
+   .. automethod:: reconstruct_geometry

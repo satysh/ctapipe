@@ -1,0 +1,31 @@
+Dict
+====
+
+.. currentmodule:: ctapipe.core.traits
+
+.. autoclass:: Dict
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Dict.class_init
+      ~Dict.element_error
+      ~Dict.from_string
+      ~Dict.from_string_list
+      ~Dict.instance_init
+      ~Dict.item_from_string
+      ~Dict.validate
+      ~Dict.validate_elements
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: class_init
+   .. automethod:: element_error
+   .. automethod:: from_string
+   .. automethod:: from_string_list
+   .. automethod:: instance_init
+   .. automethod:: item_from_string
+   .. automethod:: validate
+   .. automethod:: validate_elements

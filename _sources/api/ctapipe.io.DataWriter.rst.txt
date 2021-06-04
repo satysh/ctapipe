@@ -1,0 +1,69 @@
+DataWriter
+==========
+
+.. currentmodule:: ctapipe.io
+
+.. autoclass:: DataWriter
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~DataWriter.compression_level
+      ~DataWriter.compression_type
+      ~DataWriter.datalevels
+      ~DataWriter.image_dtype
+      ~DataWriter.image_offset
+      ~DataWriter.image_scale
+      ~DataWriter.output_path
+      ~DataWriter.overwrite
+      ~DataWriter.peak_time_dtype
+      ~DataWriter.peak_time_offset
+      ~DataWriter.peak_time_scale
+      ~DataWriter.split_datasets_by
+      ~DataWriter.transform_image
+      ~DataWriter.transform_peak_time
+      ~DataWriter.write_images
+      ~DataWriter.write_index_tables
+      ~DataWriter.write_mono_shower
+      ~DataWriter.write_parameters
+      ~DataWriter.write_stereo_shower
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~DataWriter.__call__
+      ~DataWriter.finish
+      ~DataWriter.table_name
+      ~DataWriter.write_simulation_histograms
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: compression_level
+   .. autoattribute:: compression_type
+   .. autoattribute:: datalevels
+   .. autoattribute:: image_dtype
+   .. autoattribute:: image_offset
+   .. autoattribute:: image_scale
+   .. autoattribute:: output_path
+   .. autoattribute:: overwrite
+   .. autoattribute:: peak_time_dtype
+   .. autoattribute:: peak_time_offset
+   .. autoattribute:: peak_time_scale
+   .. autoattribute:: split_datasets_by
+   .. autoattribute:: transform_image
+   .. autoattribute:: transform_peak_time
+   .. autoattribute:: write_images
+   .. autoattribute:: write_index_tables
+   .. autoattribute:: write_mono_shower
+   .. autoattribute:: write_parameters
+   .. autoattribute:: write_stereo_shower
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: __call__
+   .. automethod:: finish
+   .. automethod:: table_name
+   .. automethod:: write_simulation_histograms

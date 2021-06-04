@@ -1,0 +1,7 @@
+HillasPlane
+===========
+
+.. currentmodule:: ctapipe.reco.hillas_reconstructor
+
+.. autoclass:: HillasPlane
+   :show-inheritance:

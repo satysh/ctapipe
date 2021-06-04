@@ -1,0 +1,31 @@
+Long
+====
+
+.. currentmodule:: ctapipe.core.traits
+
+.. autoclass:: Long
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Long.default_value
+      ~Long.info_text
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Long.from_string
+      ~Long.validate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: default_value
+   .. autoattribute:: info_text
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: from_string
+   .. automethod:: validate

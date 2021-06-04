@@ -1,0 +1,6 @@
+TooFewTelescopesException
+=========================
+
+.. currentmodule:: ctapipe.reco.reco_algorithms
+
+.. autoexception:: TooFewTelescopesException
